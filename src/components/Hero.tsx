@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import Image from 'next/image'
 import { FaGithub, FaLinkedin, FaEnvelope, FaPhone } from 'react-icons/fa'
 import { HiArrowDown } from 'react-icons/hi'
 
@@ -65,6 +66,44 @@ const Hero = () => {
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10"
       >
         <div className="text-center">
+          {/* Profile Image */}
+          <motion.div
+            variants={itemVariants}
+            className="mb-8 flex justify-center"
+          >
+            <div className="relative">
+              <motion.div
+                animate={{
+                  boxShadow: [
+                    '0 0 20px rgba(14, 165, 233, 0.3)',
+                    '0 0 40px rgba(14, 165, 233, 0.5)',
+                    '0 0 20px rgba(14, 165, 233, 0.3)',
+                  ],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                }}
+                className="relative w-48 h-48 md:w-56 md:h-56 rounded-full overflow-hidden border-4 border-primary-500/30"
+              >
+                <Image
+                  src="/profile.png"
+                  alt="Rohith Neralla"
+                  fill
+                  className="object-cover"
+                  priority
+                />
+              </motion.div>
+              {/* Animated ring */}
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
+                className="absolute inset-0 rounded-full border-2 border-dashed border-primary-400/30"
+              />
+            </div>
+          </motion.div>
+
           <motion.div variants={itemVariants} className="mb-4">
             <span className="inline-block px-4 py-2 bg-primary-500/10 border border-primary-500/20 rounded-full text-primary-400 text-sm font-medium">
               Software Engineer
