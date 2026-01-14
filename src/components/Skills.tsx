@@ -6,7 +6,7 @@ import {
   SiReact, SiNextdotjs, SiTypescript, SiJavascript, SiNodedotjs, 
   SiPython, SiPostgresql, SiMongodb, SiDocker, SiAmazonaws,
   SiTailwindcss, SiRedux, SiGraphql, SiGit, SiJenkins,
-  SiAngular, SiSpringboot, SiDjango, SiFigma, SiKubernetes
+  SiAngular, SiSpringboot, SiDjango, SiFigma, SiKubernetes, SiExpress
 } from 'react-icons/si'
 import { FaJava } from 'react-icons/fa'
 
@@ -36,11 +36,12 @@ const Skills = () => {
       color: 'from-green-500 to-emerald-500',
       skills: [
         { name: 'Node.js', icon: SiNodedotjs, level: 90, color: '#339933' },
+        { name: 'Express.js', icon: SiExpress, level: 90, color: '#000000' },
         { name: 'Python', icon: SiPython, level: 85, color: '#3776AB' },
+        { name: 'Django', icon: SiDjango, level: 85, color: '#092E20' },
+        { name: 'GraphQL', icon: SiGraphql, level: 85, color: '#E10098' },
         { name: 'Java', icon: FaJava, level: 80, color: '#007396' },
         { name: 'Spring Boot', icon: SiSpringboot, level: 75, color: '#6DB33F' },
-        { name: 'Django', icon: SiDjango, level: 75, color: '#092E20' },
-        { name: 'GraphQL', icon: SiGraphql, level: 80, color: '#E10098' },
       ],
     },
     {
@@ -144,7 +145,7 @@ const Skills = () => {
           className="mt-12 grid md:grid-cols-3 gap-6"
         >
           <div className="bg-gradient-to-br from-primary-500/10 to-primary-600/10 border border-primary-500/20 rounded-lg p-6 text-center">
-            <div className="text-4xl font-bold text-primary-400 mb-2">5+</div>
+            <div className="text-4xl font-bold text-primary-400 mb-2">4</div>
             <div className="text-gray-300">Years Experience</div>
           </div>
           <div className="bg-gradient-to-br from-green-500/10 to-emerald-600/10 border border-green-500/20 rounded-lg p-6 text-center">
@@ -152,7 +153,7 @@ const Skills = () => {
             <div className="text-gray-300">Performance Improvements</div>
           </div>
           <div className="bg-gradient-to-br from-purple-500/10 to-pink-600/10 border border-purple-500/20 rounded-lg p-6 text-center">
-            <div className="text-4xl font-bold text-purple-400 mb-2">20+</div>
+            <div className="text-4xl font-bold text-purple-400 mb-2">15+</div>
             <div className="text-gray-300">Technologies Mastered</div>
           </div>
         </motion.div>

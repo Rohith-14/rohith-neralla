@@ -51,7 +51,7 @@ const About = () => {
               <div className="relative bg-dark-700 p-8 rounded-lg border border-gray-700">
                 <p className="text-gray-300 text-lg leading-relaxed mb-4">
                   I'm a passionate <span className="text-primary-400 font-semibold">Software Engineer</span> with{' '}
-                  <span className="text-primary-400 font-semibold">5+ years</span> of experience building modern web and mobile applications.
+                  <span className="text-primary-400 font-semibold">3+ years</span> of experience building modern web and mobile applications.
                 </p>
                 <p className="text-gray-300 text-lg leading-relaxed mb-4">
                   Currently at <span className="text-primary-400 font-semibold">Velmeni.ai</span>, I'm developing AI-powered healthcare solutions 
@@ -77,7 +77,7 @@ const About = () => {
                   <p className="text-gray-400">Master of Computer Science</p>
                   <p className="text-gray-500 text-sm">University of Central Florida (GPA: 3.93)</p>
                 </div>
-              </div>
+              </div> 
 
               <div className="flex items-start gap-4">
                 <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-primary-500 to-purple-500 rounded-lg flex items-center justify-center">
@@ -85,8 +85,19 @@ const About = () => {
                 </div>
                 <div>
                   <h3 className="text-xl font-bold text-gray-200 mb-2">Experience</h3>
-                  <p className="text-gray-400">5+ Years in Software Development</p>
+                  <p className="text-gray-400">3+ Years in Software Development</p>
                   <p className="text-gray-500 text-sm">Velmeni.ai, Deloitte, Augur Cyber X, Moody's</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-primary-500 to-purple-500 rounded-lg flex items-center justify-center">
+                  <span className="text-2xl">🏆</span>
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-gray-200 mb-2">Certification</h3>
+                  <p className="text-gray-400">Meta Certified Front-End Developer</p>
+                  <p className="text-gray-500 text-sm">Professional certification from Meta</p>
                 </div>
               </div>
 

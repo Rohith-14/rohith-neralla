@@ -1,10 +1,11 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { FaGithub, FaLinkedin, FaEnvelope, FaPhone, FaPaperPlane } from 'react-icons/fa'
 import { HiCheckCircle, HiXCircle } from 'react-icons/hi'
+import emailjs from '@emailjs/browser'
 
 const Contact = () => {
   const [ref, inView] = useInView({
@@ -12,6 +13,7 @@ const Contact = () => {
     threshold: 0.1,
   })
 
+  const formRef = useRef<HTMLFormElement>(null)
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -19,24 +21,52 @@ const Contact = () => {
     message: '',
   })
 
-  const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle')
+  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle')
+  const [errorMessage, setErrorMessage] = useState('')
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     
-    // Simulate form submission
-    setTimeout(() => {
-      setStatus('success')
-      setFormData({ name: '', email: '', subject: '', message: '' })
-      
+    if (!formRef.current) return
+
+    setStatus('sending')
+    setErrorMessage('')
+
+    try {
+      // Replace these with your EmailJS credentials
+      const result = await emailjs.sendForm(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || 'YOUR_SERVICE_ID',
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || 'YOUR_TEMPLATE_ID',
+        formRef.current,
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || 'YOUR_PUBLIC_KEY'
+      )
+
+      if (result.text === 'OK') {
+        setStatus('success')
+        setFormData({ name: '', email: '', subject: '', message: '' })
+        setTimeout(() => setStatus('idle'), 5000)
+      }
+    } catch (error: any) {
+      console.error('Email send error:', error)
+      setStatus('error')
+      setErrorMessage(error?.text || 'Failed to send message. Please try again or contact me directly via email.')
       setTimeout(() => setStatus('idle'), 5000)
-    }, 1000)
+    }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target
+    // Map EmailJS field names to formData keys
+    const fieldMap: Record<string, string> = {
+      'user_name': 'name',
+      'user_email': 'email',
+      'subject': 'subject',
+      'message': 'message'
+    }
+    const fieldKey = fieldMap[name] || name
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [fieldKey]: value,
     })
   }
 
@@ -147,7 +177,7 @@ const Contact = () => {
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
                   Your Name
@@ -155,11 +185,12 @@ const Contact = () => {
                 <input
                   type="text"
                   id="name"
-                  name="name"
+                  name="user_name"
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 bg-dark-900 border border-gray-700 rounded-lg text-gray-200 placeholder-gray-500 focus:outline-none focus:border-primary-500 transition-colors"
+                  disabled={status === 'sending'}
+                  className="w-full px-4 py-3 bg-dark-900 border border-gray-700 rounded-lg text-gray-200 placeholder-gray-500 focus:outline-none focus:border-primary-500 transition-colors disabled:opacity-50"
                   placeholder="John Doe"
                 />
               </div>
@@ -171,11 +202,12 @@ const Contact = () => {
                 <input
                   type="email"
                   id="email"
-                  name="email"
+                  name="user_email"
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 bg-dark-900 border border-gray-700 rounded-lg text-gray-200 placeholder-gray-500 focus:outline-none focus:border-primary-500 transition-colors"
+                  disabled={status === 'sending'}
+                  className="w-full px-4 py-3 bg-dark-900 border border-gray-700 rounded-lg text-gray-200 placeholder-gray-500 focus:outline-none focus:border-primary-500 transition-colors disabled:opacity-50"
                   placeholder="john@example.com"
                 />
               </div>
@@ -191,7 +223,8 @@ const Contact = () => {
                   value={formData.subject}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 bg-dark-900 border border-gray-700 rounded-lg text-gray-200 placeholder-gray-500 focus:outline-none focus:border-primary-500 transition-colors"
+                  disabled={status === 'sending'}
+                  className="w-full px-4 py-3 bg-dark-900 border border-gray-700 rounded-lg text-gray-200 placeholder-gray-500 focus:outline-none focus:border-primary-500 transition-colors disabled:opacity-50"
                   placeholder="Project Opportunity"
                 />
               </div>
@@ -206,8 +239,9 @@ const Contact = () => {
                   value={formData.message}
                   onChange={handleChange}
                   required
+                  disabled={status === 'sending'}
                   rows={6}
-                  className="w-full px-4 py-3 bg-dark-900 border border-gray-700 rounded-lg text-gray-200 placeholder-gray-500 focus:outline-none focus:border-primary-500 transition-colors resize-none"
+                  className="w-full px-4 py-3 bg-dark-900 border border-gray-700 rounded-lg text-gray-200 placeholder-gray-500 focus:outline-none focus:border-primary-500 transition-colors resize-none disabled:opacity-50"
                   placeholder="Tell me about your project..."
                 />
               </div>
@@ -223,14 +257,35 @@ const Contact = () => {
                 </motion.div>
               )}
 
+              {status === 'error' && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="flex items-center gap-2 text-red-400 bg-red-400/10 border border-red-400/20 rounded-lg p-4"
+                >
+                  <HiXCircle size={24} />
+                  <span>{errorMessage}</span>
+                </motion.div>
+              )}
+
               <motion.button
                 type="submit"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="w-full px-8 py-4 bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold rounded-lg shadow-lg hover:shadow-primary-500/50 transition-all duration-300 flex items-center justify-center gap-2"
+                disabled={status === 'sending'}
+                whileHover={{ scale: status === 'sending' ? 1 : 1.02 }}
+                whileTap={{ scale: status === 'sending' ? 1 : 0.98 }}
+                className="w-full px-8 py-4 bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold rounded-lg shadow-lg hover:shadow-primary-500/50 transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <FaPaperPlane />
-                Send Message
+                {status === 'sending' ? (
+                  <>
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                    Sending...
+                  </>
+                ) : (
+                  <>
+                    <FaPaperPlane />
+                    Send Message
+                  </>
+                )}
               </motion.button>
             </form>
           </motion.div>
