@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
+import { about } from '@/data/portfolio'
 
 const About = () => {
   const [ref, inView] = useInView({

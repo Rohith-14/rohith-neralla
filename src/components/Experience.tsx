@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { FaBriefcase, FaCalendar } from 'react-icons/fa'
 import { useRef, useState, useEffect } from 'react'
+import { experiences } from '@/data/portfolio'
 
 const Experience = () => {
   const [ref, inView] = useInView({
@@ -20,67 +21,6 @@ const Experience = () => {
   const timelineProgress = useTransform(scrollYProgress, [0.1, 0.9], [0, 1])
   
   const [activeIndex, setActiveIndex] = useState(-1)
-  
-  const experiences = [
-    {
-      company: 'Velmeni.ai',
-      role: 'Software Engineer',
-      period: 'November 2024 – Present',
-      location: 'Remote',
-      achievements: [
-        'Engineered responsive React + Next.js UI for real-time AI dental X-ray visualization',
-        'Implemented Redux for global state management across components',
-        'Built WebSocket listener for real-time claim status rendering',
-        'Developed React Native wireframes extending web diagnostics to mobile',
-        'Optimized PostgreSQL queries boosting data retrieval speed by 40%',
-        'Integrated FastAPI ML inference APIs for real-time pathology detection',
-        'Automated ETL workflows with Apache Airflow, cutting release time by 60%',
-      ],
-      color: 'from-blue-500 to-cyan-500',
-    },
-    {
-      company: 'Deloitte Consulting LLP',
-      role: 'Software Engineer',
-      period: 'January 2021 – August 2022',
-      location: 'Remote',
-      achievements: [
-        'Built interactive React dashboards improving reporting efficiency by 40%',
-        'Improved frontend load time by 35% with Webpack optimization',
-        'Developed REST APIs with Node.js and PostgreSQL, boosting processing by 35%',
-        'Created Express.js middleware for authentication and error handling',
-        'Implemented OAuth 2.0 for secure authentication',
-        'Configured CI/CD pipelines reducing deployment time by 60%',
-        'Supported 1,000+ daily users with high-performance enterprise solutions',
-      ],
-      color: 'from-green-500 to-emerald-500',
-    },
-    {
-      company: 'Augur Cyber X',
-      role: 'Software Engineer',
-      period: 'December 2019 – December 2020',
-      location: 'Remote',
-      achievements: [
-        'Built full-stack e-learning app with React and TypeScript',
-        'Developed REST APIs with Node.js (Express) and PostgreSQL',
-        'Created mobile-first React Native app for seamless learning experience',
-        'Maintained Agile-style sprints using Git for version control',
-      ],
-      color: 'from-purple-500 to-pink-500',
-    },
-    {
-      company: "Moody's",
-      role: 'Software Engineer (Intern)',
-      period: 'April 2025 – June 2025',
-      location: 'Remote',
-      achievements: [
-        'Implemented reusable UI components with Angular and TypeScript',
-        'Developed backend REST APIs using Java and Spring Boot',
-        'Designed backend modules in Spring MVC with PostgreSQL integration',
-        'Created TypeScript E2E automation scripts reducing QA effort by 70%',
-      ],
-      color: 'from-orange-500 to-red-500',
-    },
-  ]
 
   useEffect(() => {
     return scrollYProgress.on('change', (latest) => {
