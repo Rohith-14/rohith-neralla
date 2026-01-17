@@ -131,7 +131,7 @@ const Hero = () => {
               Full-stack engineer crafting exceptional digital experiences with{' '}
               <span className="text-primary-400 font-semibold">React</span>,{' '}
               <span className="text-primary-400 font-semibold">Next.js</span>, and{' '}
-              <span className="text-primary-400 font-semibold">React Native</span>
+              <span className="text-primary-400 font-semibold">Node.js</span>
             </motion.p>
 
             <motion.p
@@ -219,7 +219,7 @@ const Hero = () => {
               whileHover={{ scale: 1.02 }}
               className="relative w-full h-full flex items-center justify-center lg:justify-end lg:pr-0"
             >
-              <div className="relative w-full max-w-xl lg:max-w-none h-[500px] md:h-[600px] lg:h-[700px] lg:w-[700px]">
+              <div className="relative w-full max-w-xl lg:max-w-none h-[600px] md:h-[600px] lg:h-[700px] lg:w-[700px]">
                 <Image
                   src="/profile.png"
                   alt="Rohith Neralla - Software Engineer"
