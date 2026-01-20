@@ -1,74 +1,77 @@
 import { useLanguage } from './LanguageContext'
 import * as en from '@/data/portfolio'
-import { es, experiences as esExperiences, skills as esSkills, projects as esProjects } from './translations/es'
-import { ja, experiences as jaExperiences, skills as jaSkills, projects as jaProjects } from './translations/ja'
-import { hi, experiences as hiExperiences, skills as hiSkills, projects as hiProjects } from './translations/hi'
-import { te, experiences as teExperiences, skills as teSkills, projects as teProjects } from './translations/te'
-import { fr, experiences as frExperiences, skills as frSkills, projects as frProjects } from './translations/fr'
+import { es } from './translations/es'
+import { ja } from './translations/ja'
+import { hi } from './translations/hi'
+import { te } from './translations/te'
+import { fr } from './translations/fr'
+
+// Import technical data from English (these don't need translation)
+import { experiences, skills as enSkills, projects as enProjects } from '@/data/portfolio'
 
 // Merge translations with technical data from English
 const esComplete = {
   ...es,
-  experiences: esExperiences,
+  experiences,
   skills: {
     ...es.skills,
-    categories: esSkills.categories,
+    categories: enSkills.categories,
   },
   projects: {
     ...es.projects,
-    items: esProjects.items,
+    items: enProjects.items,
   },
 }
 
 const jaComplete = {
   ...ja,
-  experiences: jaExperiences,
+  experiences,
   skills: {
     ...ja.skills,
-    categories: jaSkills.categories,
+    categories: enSkills.categories,
   },
   projects: {
     ...ja.projects,
-    items: jaProjects.items,
+    items: enProjects.items,
   },
 }
 
 const hiComplete = {
   ...hi,
-  experiences: hiExperiences,
+  experiences,
   skills: {
     ...hi.skills,
-    categories: hiSkills.categories,
+    categories: enSkills.categories,
   },
   projects: {
     ...hi.projects,
-    items: hiProjects.items,
+    items: enProjects.items,
   },
 }
 
 const teComplete = {
   ...te,
-  experiences: teExperiences,
+  experiences,
   skills: {
     ...te.skills,
-    categories: teSkills.categories,
+    categories: enSkills.categories,
   },
   projects: {
     ...te.projects,
-    items: teProjects.items,
+    items: enProjects.items,
   },
 }
 
 const frComplete = {
   ...fr,
-  experiences: frExperiences,
+  experiences,
   skills: {
     ...fr.skills,
-    categories: frSkills.categories,
+    categories: enSkills.categories,
   },
   projects: {
     ...fr.projects,
-    items: frProjects.items,
+    items: enProjects.items,
   },
 }
 

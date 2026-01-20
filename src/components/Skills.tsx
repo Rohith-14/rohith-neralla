@@ -9,7 +9,7 @@ import {
   SiAngular, SiSpringboot, SiDjango, SiKubernetes, SiExpress, SiFigma
 } from 'react-icons/si'
 import { FaJava } from 'react-icons/fa'
-import { useTranslation } from '@/i18n/useTranslation'
+import { skills } from '@/data/portfolio'
 
 // Icon mapping
 const iconMap: Record<string, any> = {
@@ -42,7 +42,6 @@ const Skills = () => {
     triggerOnce: true,
     threshold: 0.1,
   })
-  const { t } = useTranslation()
 
   return (
     <section id="skills" className="py-20 bg-gray-100 dark:bg-dark-800">
@@ -59,12 +58,12 @@ const Skills = () => {
           </h2>
           <div className="w-20 h-1 bg-gradient-to-r from-primary-500 to-purple-500 mx-auto rounded-full mb-4" />
           <p className="text-gray-600 dark:text-gray-400 text-lg max-w-2xl mx-auto">
-            {t.skills.description}
+            {skills.description}
           </p>
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-8">
-          {t.skills.categories.map((category, categoryIndex) => (
+          {skills.categories.map((category, categoryIndex) => (
             <motion.div
               key={category.name}
               initial={{ opacity: 0, y: 30 }}
@@ -73,7 +72,15 @@ const Skills = () => {
             >
               <div className="bg-white dark:bg-dark-900 rounded-lg p-6 border border-gray-300 dark:border-gray-700 hover:border-primary-500 transition-all duration-300 h-full">
                 <div className="flex items-center gap-3 mb-6">
-                  <div className={`h-1 w-12 bg-gradient-to-r ${category.color} rounded-full`} />
+                  <div 
+                    className="h-1 w-12 rounded-full"
+                    style={{
+                      backgroundImage: category.color.includes('blue') ? 'linear-gradient(to right, rgb(59, 130, 246), rgb(6, 182, 212))' :
+                                       category.color.includes('green') ? 'linear-gradient(to right, rgb(34, 197, 94), rgb(16, 185, 129))' :
+                                       category.color.includes('purple') ? 'linear-gradient(to right, rgb(168, 85, 247), rgb(236, 72, 153))' :
+                                       'linear-gradient(to right, rgb(249, 115, 22), rgb(239, 68, 68))'
+                    }}
+                  />
                   <h3 className="text-2xl font-bold text-gray-200">{category.name}</h3>
                 </div>
 
@@ -98,12 +105,19 @@ const Skills = () => {
                             <span className="text-gray-700 dark:text-gray-300 text-sm font-medium text-center">{skill.name}</span>
                             
                             {/* Skill level bar */}
-                            <div className="w-full mt-3 bg-gray-50 dark:bg-dark-700 rounded-full h-1.5 overflow-hidden">
+                            <div className="w-full mt-3 bg-gray-300 dark:bg-gray-700 rounded-full h-2 overflow-hidden">
                               <motion.div
                                 initial={{ width: 0 }}
-                                animate={inView ? { width: `${skill.level}%` } : {}}
+                                animate={inView ? { width: `${skill.level}%` } : { width: `${skill.level}%` }}
                                 transition={{ duration: 1, delay: (categoryIndex * 0.1) + (skillIndex * 0.05) + 0.3 }}
-                                className={`h-full bg-gradient-to-r ${category.color} rounded-full`}
+                                className="h-full rounded-full"
+                                style={{
+                                  background: `linear-gradient(to right, var(--tw-gradient-stops))`,
+                                  backgroundImage: category.color.includes('blue') ? 'linear-gradient(to right, rgb(59, 130, 246), rgb(6, 182, 212))' :
+                                                   category.color.includes('green') ? 'linear-gradient(to right, rgb(34, 197, 94), rgb(16, 185, 129))' :
+                                                   category.color.includes('purple') ? 'linear-gradient(to right, rgb(168, 85, 247), rgb(236, 72, 153))' :
+                                                   'linear-gradient(to right, rgb(249, 115, 22), rgb(239, 68, 68))'
+                                }}
                               />
                             </div>
                           </div>
@@ -124,12 +138,29 @@ const Skills = () => {
           transition={{ duration: 0.6, delay: 0.5 }}
           className="mt-12 grid md:grid-cols-3 gap-6"
         >
-          {t.skills.highlights.map((highlight, index) => (
+          {skills.highlights.map((highlight, index) => (
             <div 
               key={index}
-              className={`bg-gradient-to-br ${highlight.color} border ${highlight.borderColor} rounded-lg p-6 text-center`}
+              className={`rounded-lg p-6 text-center border`}
+              style={{
+                backgroundColor: index === 0 ? 'rgba(59, 130, 246, 0.15)' :
+                                index === 1 ? 'rgba(34, 197, 94, 0.15)' :
+                                'rgba(168, 85, 247, 0.15)',
+                borderColor: index === 0 ? 'rgba(59, 130, 246, 0.3)' :
+                            index === 1 ? 'rgba(34, 197, 94, 0.3)' :
+                            'rgba(168, 85, 247, 0.3)'
+              }}
             >
-              <div className={`text-4xl font-bold ${highlight.textColor} mb-2`}>{highlight.value}</div>
+              <div 
+                className="text-4xl font-bold mb-2"
+                style={{
+                  color: index === 0 ? 'rgb(96, 165, 250)' :
+                        index === 1 ? 'rgb(74, 222, 128)' :
+                        'rgb(192, 132, 252)'
+                }}
+              >
+                {highlight.value}
+              </div>
               <div className="text-gray-700 dark:text-gray-300">{highlight.label}</div>
             </div>
           ))}

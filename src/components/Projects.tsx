@@ -54,7 +54,7 @@ const Projects = () => {
         </motion.div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {t.projects.items.map((project, index) => (
+          {projects.items.map((project, index) => (
             <motion.div
               key={project.title}
               initial={{ opacity: 0, y: 30 }}
@@ -65,7 +65,16 @@ const Projects = () => {
             >
               <div className="bg-gray-100 dark:bg-dark-800 rounded-lg border border-gray-300 dark:border-gray-700 hover:border-primary-500 transition-all duration-300 h-full flex flex-col overflow-hidden">
                 {/* Header with gradient */}
-                <div className={`bg-gradient-to-r ${project.gradient} p-6`}>
+                <div 
+                  className="p-6"
+                  style={{
+                    backgroundImage: project.gradient.includes('blue') ? 'linear-gradient(to right, rgb(59, 130, 246), rgb(14, 165, 233))' :
+                                     project.gradient.includes('green') ? 'linear-gradient(to right, rgb(34, 197, 94), rgb(16, 185, 129))' :
+                                     project.gradient.includes('orange') ? 'linear-gradient(to right, rgb(249, 115, 22), rgb(239, 68, 68))' :
+                                     project.gradient.includes('purple') ? 'linear-gradient(to right, rgb(168, 85, 247), rgb(236, 72, 153))' :
+                                     'linear-gradient(to right, rgb(234, 179, 8), rgb(202, 138, 4))'
+                  }}
+                >
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex gap-2">
                       {project.icons.map((iconName, i) => {
