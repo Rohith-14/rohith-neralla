@@ -143,9 +143,9 @@ const Skills = () => {
               key={index}
               className={`rounded-lg p-6 text-center border`}
               style={{
-                backgroundColor: index === 0 ? 'rgba(59, 130, 246, 0.15)' :
-                                index === 1 ? 'rgba(34, 197, 94, 0.15)' :
-                                'rgba(168, 85, 247, 0.15)',
+                backgroundImage: index === 0 ? 'linear-gradient(to bottom right, rgba(59, 130, 246, 0.15), rgba(79, 70, 229, 0.15))' :
+                                index === 1 ? 'linear-gradient(to bottom right, rgba(34, 197, 94, 0.15), rgba(5, 150, 105, 0.15))' :
+                                'linear-gradient(to bottom right, rgba(168, 85, 247, 0.15), rgba(236, 72, 153, 0.15))',
                 borderColor: index === 0 ? 'rgba(59, 130, 246, 0.3)' :
                             index === 1 ? 'rgba(34, 197, 94, 0.3)' :
                             'rgba(168, 85, 247, 0.3)'
