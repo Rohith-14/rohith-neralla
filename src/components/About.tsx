@@ -2,9 +2,10 @@
 
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import { about } from '@/data/portfolio'
+import { useTranslation } from '@/i18n/useTranslation'
 
 const About = () => {
+  const { t } = useTranslation()
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
@@ -30,7 +31,7 @@ const About = () => {
   }
 
   return (
-    <section id="about" className="py-20 bg-dark-800">
+    <section id="about" className="py-20 bg-gray-100 dark:bg-dark-800">
       <motion.div
         ref={ref}
         variants={containerVariants}
@@ -49,80 +50,35 @@ const About = () => {
           <motion.div variants={itemVariants}>
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-r from-primary-500 to-purple-500 rounded-lg blur-xl opacity-20" />
-              <div className="relative bg-dark-700 p-8 rounded-lg border border-gray-700">
-                <p className="text-gray-300 text-lg leading-relaxed mb-4">
-                  I'm a passionate <span className="text-primary-400 font-semibold">Software Engineer</span> with{' '}
-                  <span className="text-primary-400 font-semibold">3+ years</span> of experience building modern web and mobile applications.
-                </p>
-                <p className="text-gray-300 text-lg leading-relaxed mb-4">
-                  Currently at <span className="text-primary-400 font-semibold">Velmeni.ai</span>, I'm developing AI-powered healthcare solutions 
-                  that help dentists diagnose pathologies using cutting-edge React and Next.js technologies.
-                </p>
-                <p className="text-gray-300 text-lg leading-relaxed">
-                  I specialize in creating <span className="text-primary-400 font-semibold">responsive</span>, 
-                  {' '}<span className="text-primary-400 font-semibold">performant</span>, and{' '}
-                  <span className="text-primary-400 font-semibold">user-friendly</span> applications that solve real-world problems.
-                </p>
+              <div className="relative bg-gray-50 dark:bg-dark-700 p-8 rounded-lg border border-gray-300 dark:border-gray-700">
+                {t.about.paragraphs.map((paragraph, index) => (
+                  <p key={index} className={`text-gray-700 dark:text-gray-300 text-lg leading-relaxed ${index < t.about.paragraphs.length - 1 ? 'mb-4' : ''}`}>
+                    {paragraph.split(/(Software Engineer|3\+ years|Velmeni\.ai|responsive|performant|user-friendly)/).map((part, i) => {
+                      const isHighlight = t.about.highlights.some(h => h.text === part)
+                      return isHighlight ? (
+                        <span key={i} className="text-primary-400 font-semibold">{part}</span>
+                      ) : part
+                    })}
+                  </p>
+                ))}
               </div>
             </div>
           </motion.div>
 
           <motion.div variants={itemVariants}>
             <div className="space-y-6">
-              <div className="flex items-start gap-4">
-                <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-primary-500 to-purple-500 rounded-lg flex items-center justify-center">
-                  <span className="text-2xl">🎓</span>
+              {t.about.cards.map((card, index) => (
+                <div key={index} className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-primary-500 to-purple-500 rounded-lg flex items-center justify-center">
+                    <span className="text-2xl">{card.icon}</span>
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-gray-200 mb-2">{card.title}</h3>
+                    <p className="text-gray-600 dark:text-gray-400">{card.subtitle}</p>
+                    <p className="text-gray-500 text-sm">{card.description}</p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="text-xl font-bold text-gray-200 mb-2">Education</h3>
-                  <p className="text-gray-400">Master of Computer Science</p>
-                  <p className="text-gray-500 text-sm">University of Central Florida (GPA: 3.93)</p>
-                </div>
-              </div> 
-
-              <div className="flex items-start gap-4">
-                <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-primary-500 to-purple-500 rounded-lg flex items-center justify-center">
-                  <span className="text-2xl">💼</span>
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold text-gray-200 mb-2">Experience</h3>
-                  <p className="text-gray-400">3+ Years in Software Development</p>
-                  <p className="text-gray-500 text-sm">Velmeni.ai, Deloitte, Augur Cyber X, Moody's</p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4">
-                <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-primary-500 to-purple-500 rounded-lg flex items-center justify-center">
-                  <span className="text-2xl">🏆</span>
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold text-gray-200 mb-2">Certification</h3>
-                  <p className="text-gray-400">Meta Certified Front-End Developer</p>
-                  <p className="text-gray-500 text-sm">Professional certification from Meta</p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4">
-                <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-primary-500 to-purple-500 rounded-lg flex items-center justify-center">
-                  <span className="text-2xl">🚀</span>
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold text-gray-200 mb-2">Focus</h3>
-                  <p className="text-gray-400">React, Next.js & React Native</p>
-                  <p className="text-gray-500 text-sm">Building scalable frontend architectures</p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4">
-                <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-primary-500 to-purple-500 rounded-lg flex items-center justify-center">
-                  <span className="text-2xl">⚡</span>
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold text-gray-200 mb-2">Impact</h3>
-                  <p className="text-gray-400">40-60% performance improvements</p>
-                  <p className="text-gray-500 text-sm">Optimized load times, data processing, and deployment cycles</p>
-                </div>
-              </div>
+              ))}
             </div>
           </motion.div>
         </div>

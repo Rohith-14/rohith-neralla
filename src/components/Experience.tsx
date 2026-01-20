@@ -2,11 +2,14 @@
 
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import { FaBriefcase, FaCalendar } from 'react-icons/fa'
+import { FaCalendar } from 'react-icons/fa'
 import { useRef, useState, useEffect } from 'react'
+import Image from 'next/image'
 import { experiences } from '@/data/portfolio'
+import { useTranslation } from '@/i18n/useTranslation'
 
 const Experience = () => {
+  const { t } = useTranslation()
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
@@ -34,7 +37,7 @@ const Experience = () => {
   }, [scrollYProgress, experiences.length])
 
   return (
-    <section id="experience" ref={sectionRef} className="py-20 bg-dark-900">
+    <section id="experience" ref={sectionRef} className="py-20 bg-white dark:bg-dark-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}
@@ -108,15 +111,20 @@ const Experience = () => {
                       y: -5
                     } : { scale: 1, y: 0 }}
                     transition={{ duration: 0.3 }}
-                    className={`bg-dark-800 p-6 rounded-lg border transition-all duration-300 shadow-xl ${
+                    className={`bg-gray-100 dark:bg-dark-800 p-6 rounded-lg border transition-all duration-300 shadow-xl ${
                       isActive 
                         ? 'border-primary-500' 
-                        : 'border-gray-700 hover:border-primary-500'
+                        : 'border-gray-300 dark:border-gray-700 hover:border-primary-500'
                     }`}
                   >
                     <div className="flex items-center gap-3 mb-4">
-                      <div className={`w-12 h-12 bg-gradient-to-r ${exp.color} rounded-lg flex items-center justify-center`}>
-                        <FaBriefcase className="text-white text-xl" />
+                      <div className="relative w-12 h-12 rounded-lg overflow-hidden bg-black flex items-center justify-center">
+                        <Image 
+                          src={exp.logo} 
+                          alt={`${exp.company} logo`}
+                          fill
+                          className="object-contain p-1"
+                        />
                       </div>
                       <div>
                         <h3 className="text-xl font-bold text-gray-200">{exp.company}</h3>
@@ -124,14 +132,14 @@ const Experience = () => {
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-2 text-gray-400 text-sm mb-4">
+                    <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 text-sm mb-4">
                       <FaCalendar />
                       <span>{exp.period}</span>
                     </div>
 
                     <ul className="space-y-2">
                       {exp.achievements.map((achievement, i) => (
-                        <li key={i} className="flex items-start gap-2 text-gray-300 text-sm">
+                        <li key={i} className="flex items-start gap-2 text-gray-700 dark:text-gray-300 text-sm">
                           <span className="text-primary-400 mt-1">▹</span>
                           <span>{achievement}</span>
                         </li>

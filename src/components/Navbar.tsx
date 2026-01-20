@@ -4,10 +4,13 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { HiMenu, HiX } from 'react-icons/hi'
+import { useTranslation } from '@/i18n/useTranslation'
+import { LanguageSwitcher } from '@/i18n/LanguageSwitcher'
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const { t } = useTranslation()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,14 +19,6 @@ const Navbar = () => {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
-
-  const navItems = [
-    { name: 'About', href: '#about' },
-    { name: 'Experience', href: '#experience' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Contact', href: '#contact' },
-  ]
 
   return (
     <motion.nav
@@ -41,12 +36,12 @@ const Navbar = () => {
             transition={{ delay: 0.2 }}
             className="text-2xl font-bold gradient-text"
           >
-            <Link href="/">RN</Link>
+            <Link href="/">{t.navigation.logo}</Link>
           </motion.div>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex space-x-8">
-            {navItems.map((item, index) => (
+          <div className="hidden md:flex items-center space-x-8">
+            {t.navigation.items.map((item, index) => (
               <motion.div
                 key={item.name}
                 initial={{ opacity: 0, y: -20 }}
@@ -61,10 +56,14 @@ const Navbar = () => {
                 </a>
               </motion.div>
             ))}
+            
+            {/* Language Switcher */}
+            <LanguageSwitcher />
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="md:hidden">
+          <div className="md:hidden flex items-center gap-3">
+            <LanguageSwitcher />
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="text-gray-300 hover:text-primary-400 transition-colors"
@@ -84,7 +83,7 @@ const Navbar = () => {
           className="md:hidden bg-dark-800/95 backdrop-blur-md"
         >
           <div className="px-2 pt-2 pb-3 space-y-1">
-            {navItems.map((item) => (
+            {t.navigation.items.map((item) => (
               <a
                 key={item.name}
                 href={item.href}

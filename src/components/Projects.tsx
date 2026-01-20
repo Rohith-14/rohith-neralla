@@ -8,101 +8,34 @@ import {
   SiPython, SiNodedotjs, SiAngular, SiSpringboot, SiDocker,
   SiAmazonaws, SiDjango
 } from 'react-icons/si'
+import { useTranslation } from '@/i18n/useTranslation'
+import { projects } from '@/data/portfolio'
+
+// Icon mapping
+const iconMap: Record<string, any> = {
+  SiReact,
+  SiNextdotjs,
+  SiTypescript,
+  SiRedux,
+  SiPostgresql,
+  SiPython,
+  SiNodedotjs,
+  SiAngular,
+  SiSpringboot,
+  SiDocker,
+  SiAmazonaws,
+  SiDjango,
+}
 
 const Projects = () => {
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
   })
-
-  const projects = [
-    {
-      title: 'AI-Powered Dental Diagnostics Platform',
-      company: 'Velmeni.ai',
-      description: 'Real-time AI dental X-ray analysis platform enabling dentists to interactively review pathologies with instant AI feedback. Features WebSocket integration for live claim status updates.',
-      tags: ['React', 'Next.js', 'Redux', 'WebSocket', 'PostgreSQL', 'FastAPI'],
-      icons: [SiReact, SiNextdotjs, SiRedux, SiPostgresql, SiPython],
-      gradient: 'from-blue-500 to-cyan-500',
-      achievements: [
-        'Built responsive UI with real-time visualization',
-        'Implemented global state management with Redux',
-        'Optimized PostgreSQL queries by 40%',
-        'Integrated ML inference APIs for pathology detection',
-      ],
-    },
-    {
-      title: 'React Native Mobile Diagnostics',
-      company: 'Velmeni.ai',
-      description: 'Mobile-first extension of web diagnostics platform, bringing AI-powered dental analysis to iOS and Android with intuitive wireframes and seamless UX.',
-      tags: ['React Native', 'TypeScript', 'Redux', 'REST API'],
-      icons: [SiReact, SiTypescript, SiRedux],
-      gradient: 'from-purple-500 to-pink-500',
-      achievements: [
-        'Designed mobile wireframes extending web functionality',
-        'Implemented cross-platform mobile interface',
-        'Integrated with existing backend infrastructure',
-      ],
-    },
-    {
-      title: 'Enterprise Dashboard & Analytics',
-      company: 'Deloitte',
-      description: 'Interactive React dashboards for enterprise reporting with real-time data visualization. Reduced manual tracking time and improved load performance through Webpack optimization.',
-      tags: ['React', 'Node.js', 'PostgreSQL', 'Webpack', 'AWS'],
-      icons: [SiReact, SiNodedotjs, SiPostgresql, SiAmazonaws],
-      gradient: 'from-green-500 to-emerald-500',
-      achievements: [
-        'Improved reporting efficiency by 40%',
-        'Reduced frontend load time by 35%',
-        'Built REST APIs improving processing by 35%',
-        'Supported 1,000+ daily users',
-      ],
-    },
-    {
-      title: 'E-Learning Platform',
-      company: 'Augur Cyber X',
-      description: 'Full-stack e-learning application with real-time content updates, course management, quizzes, and analytics. Features both web and mobile-first React Native interface.',
-      tags: ['React', 'TypeScript', 'Node.js', 'PostgreSQL', 'React Native'],
-      icons: [SiReact, SiTypescript, SiNodedotjs, SiPostgresql],
-      gradient: 'from-orange-500 to-red-500',
-      achievements: [
-        'Built full-stack app with React and TypeScript',
-        'Developed REST APIs with Express and PostgreSQL',
-        'Created mobile-first React Native app',
-        'Maintained Agile development workflow',
-      ],
-    },
-    {
-      title: 'Financial Dashboard Components',
-      company: "Moody's",
-      description: 'Reusable UI component library for financial dashboards with Angular and TypeScript. Integrated backend REST APIs and automated testing reducing QA effort by 70%.',
-      tags: ['Angular', 'TypeScript', 'Java', 'Spring Boot', 'PostgreSQL'],
-      icons: [SiAngular, SiTypescript, SiSpringboot, SiPostgresql],
-      gradient: 'from-yellow-500 to-orange-500',
-      achievements: [
-        'Implemented reusable UI components',
-        'Developed backend REST APIs with Spring Boot',
-        'Created E2E automation reducing QA by 70%',
-        'Integrated Spring MVC with PostgreSQL',
-      ],
-    },
-    {
-      title: 'CI/CD Pipeline & DevOps Automation',
-      company: 'Velmeni.ai & Deloitte',
-      description: 'Docker-based Jenkins CI/CD pipelines automating builds, tests, and deployments. Implemented on AWS infrastructure reducing release cycles by 60%.',
-      tags: ['Docker', 'Jenkins', 'AWS', 'CI/CD', 'Automation'],
-      icons: [SiDocker, SiAmazonaws],
-      gradient: 'from-indigo-500 to-purple-500',
-      achievements: [
-        'Set up Docker-based CI/CD pipelines',
-        'Automated builds and deployments',
-        'Reduced release time by 60%',
-        'Optimized AWS infrastructure',
-      ],
-    },
-  ]
+  const { t } = useTranslation()
 
   return (
-    <section id="projects" className="py-20 bg-dark-900">
+    <section id="projects" className="py-20 bg-white dark:bg-dark-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}
@@ -115,13 +48,13 @@ const Projects = () => {
             Featured <span className="gradient-text">Projects</span>
           </h2>
           <div className="w-20 h-1 bg-gradient-to-r from-primary-500 to-purple-500 mx-auto rounded-full mb-4" />
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            Real-world applications and systems I've built across various industries
+          <p className="text-gray-600 dark:text-gray-400 text-lg max-w-2xl mx-auto">
+            {t.projects.description}
           </p>
         </motion.div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, index) => (
+          {t.projects.items.map((project, index) => (
             <motion.div
               key={project.title}
               initial={{ opacity: 0, y: 30 }}
@@ -130,14 +63,15 @@ const Projects = () => {
               whileHover={{ y: -10 }}
               className="group"
             >
-              <div className="bg-dark-800 rounded-lg border border-gray-700 hover:border-primary-500 transition-all duration-300 h-full flex flex-col overflow-hidden">
+              <div className="bg-gray-100 dark:bg-dark-800 rounded-lg border border-gray-300 dark:border-gray-700 hover:border-primary-500 transition-all duration-300 h-full flex flex-col overflow-hidden">
                 {/* Header with gradient */}
                 <div className={`bg-gradient-to-r ${project.gradient} p-6`}>
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex gap-2">
-                      {project.icons.map((Icon, i) => (
-                        <Icon key={i} className="text-white text-2xl" />
-                      ))}
+                      {project.icons.map((iconName, i) => {
+                        const IconComponent = iconMap[iconName]
+                        return <IconComponent key={i} className="text-white text-2xl" />
+                      })}
                     </div>
                   </div>
                   <h3 className="text-xl font-bold text-white mb-1">{project.title}</h3>
@@ -146,15 +80,15 @@ const Projects = () => {
 
                 {/* Content */}
                 <div className="p-6 flex-grow flex flex-col">
-                  <p className="text-gray-300 mb-4 text-sm leading-relaxed">
+                  <p className="text-gray-700 dark:text-gray-300 mb-4 text-sm leading-relaxed">
                     {project.description}
                   </p>
 
                   <div className="mb-4">
-                    <h4 className="text-sm font-semibold text-gray-400 mb-2">Key Achievements:</h4>
+                    <h4 className="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-2">Key Achievements:</h4>
                     <ul className="space-y-1">
                       {project.achievements.map((achievement, i) => (
-                        <li key={i} className="flex items-start gap-2 text-gray-400 text-xs">
+                        <li key={i} className="flex items-start gap-2 text-gray-600 dark:text-gray-400 text-xs">
                           <span className="text-primary-400 mt-0.5">▹</span>
                           <span>{achievement}</span>
                         </li>
@@ -167,7 +101,7 @@ const Projects = () => {
                     {project.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="px-3 py-1 bg-dark-700 text-primary-400 text-xs rounded-full border border-primary-500/20"
+                        className="px-3 py-1 bg-gray-50 dark:bg-dark-700 text-primary-400 text-xs rounded-full border border-primary-500/20"
                       >
                         {tag}
                       </span>
@@ -186,19 +120,19 @@ const Projects = () => {
           transition={{ duration: 0.6, delay: 0.8 }}
           className="text-center mt-12"
         >
-          <p className="text-gray-400 mb-6">
-            Want to see more? Check out my GitHub for additional projects and contributions.
+          <p className="text-gray-600 dark:text-gray-400 mb-6">
+            {t.projects.cta.text}
           </p>
           <motion.a
-            href="https://github.com/Rohith-14"
+            href={t.projects.cta.link}
             target="_blank"
             rel="noopener noreferrer"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="inline-flex items-center gap-2 px-8 py-4 bg-dark-700 text-gray-200 font-semibold rounded-lg border border-gray-600 hover:border-primary-500 transition-all duration-300"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-gray-50 dark:bg-dark-700 text-gray-200 font-semibold rounded-lg border border-gray-600 hover:border-primary-500 transition-all duration-300"
           >
             <FaGithub size={24} />
-            View GitHub Profile
+            {t.projects.cta.buttonText}
             <FaExternalLinkAlt size={16} />
           </motion.a>
         </motion.div>

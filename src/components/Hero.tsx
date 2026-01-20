@@ -5,9 +5,11 @@ import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import { FaGithub, FaLinkedin, FaEnvelope, FaPhone } from 'react-icons/fa'
 import { HiArrowDown } from 'react-icons/hi'
+import { useTranslation } from '@/i18n/useTranslation'
 
 const Hero = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const { t } = useTranslation()
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -110,7 +112,7 @@ const Hero = () => {
             />
             <motion.div variants={itemVariants} className="mb-4">
               <span className="inline-block px-4 py-2 bg-primary-500/10 border border-primary-500/20 rounded-full text-primary-400 text-sm font-medium">
-                Software Engineer
+                {t.personalInfo.title}
               </span>
             </motion.div>
 
@@ -118,28 +120,33 @@ const Hero = () => {
               variants={itemVariants}
               className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 leading-tight"
             >
-              Hi, I'm{' '}
+              {t.hero.greeting}{' '}
               <span className="gradient-text whitespace-nowrap">
-                Rohith Neralla
+                {t.hero.name}
               </span>
             </motion.h1>
 
             <motion.p
               variants={itemVariants}
-              className="text-lg sm:text-xl md:text-2xl text-gray-400 mb-6"
+              className="text-lg sm:text-xl md:text-2xl text-gray-600 dark:text-gray-400 mb-6"
             >
-              Full-stack engineer crafting exceptional digital experiences with{' '}
-              <span className="text-primary-400 font-semibold">React</span>,{' '}
-              <span className="text-primary-400 font-semibold">Next.js</span>, and{' '}
-              <span className="text-primary-400 font-semibold">Node.js</span>
+              {t.hero.description.split(/React|Next\.js|Node\.js/).map((part, i, arr) => {
+                if (i === arr.length - 1) return part
+                const tech = i === 0 ? 'React' : i === 1 ? 'Next.js' : 'Node.js'
+                return (
+                  <span key={i}>
+                    {part}
+                    <span className="text-primary-400 font-semibold">{tech}</span>
+                  </span>
+                )
+              })}
             </motion.p>
 
             <motion.p
               variants={itemVariants}
               className="text-base text-gray-500 mb-8"
             >
-              Currently building AI-powered healthcare solutions at Velmeni.ai. 
-              Passionate about creating intuitive, performant, and scalable applications.
+              {t.hero.tagline}
             </motion.p>
 
             <motion.div
@@ -147,20 +154,20 @@ const Hero = () => {
               className="flex flex-wrap justify-center lg:justify-start gap-4 mb-8"
             >
               <motion.a
-                href="#contact"
+                href={t.hero.cta.primaryLink}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="px-8 py-4 bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold rounded-lg shadow-lg hover:shadow-primary-500/50 transition-all duration-300 glow"
               >
-                Get In Touch
+                {t.hero.cta.primary}
               </motion.a>
               <motion.a
-                href="#projects"
+                href={t.hero.cta.secondaryLink}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 bg-dark-700 text-gray-200 font-semibold rounded-lg border border-gray-600 hover:border-primary-500 transition-all duration-300"
+                className="px-8 py-4 bg-gray-50 dark:bg-dark-700 text-gray-200 font-semibold rounded-lg border border-gray-600 hover:border-primary-500 transition-all duration-300"
               >
-                View My Work
+                {t.hero.cta.secondary}
               </motion.a>
             </motion.div>
 
@@ -169,38 +176,42 @@ const Hero = () => {
               className="flex justify-center lg:justify-start gap-6"
             >
               <motion.a
-                href="https://github.com/Rohith-14"
+                href={t.personalInfo.github}
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.2, rotate: 5 }}
                 whileTap={{ scale: 0.9 }}
-                className="text-gray-400 hover:text-primary-400 transition-colors"
+                className="text-gray-600 dark:text-gray-400 hover:text-primary-400 transition-colors"
+                aria-label="GitHub Profile"
               >
                 <FaGithub size={32} />
               </motion.a>
               <motion.a
-                href="https://linkedin.com/in/rohith-neralla"
+                href={t.personalInfo.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.2, rotate: 5 }}
                 whileTap={{ scale: 0.9 }}
-                className="text-gray-400 hover:text-primary-400 transition-colors"
+                className="text-gray-600 dark:text-gray-400 hover:text-primary-400 transition-colors"
+                aria-label="LinkedIn Profile"
               >
                 <FaLinkedin size={32} />
               </motion.a>
               <motion.a
-                href="mailto:rohithneralla99@gmail.com"
+                href={`mailto:${t.personalInfo.email}`}
                 whileHover={{ scale: 1.2, rotate: 5 }}
                 whileTap={{ scale: 0.9 }}
-                className="text-gray-400 hover:text-primary-400 transition-colors"
+                className="text-gray-600 dark:text-gray-400 hover:text-primary-400 transition-colors"
+                aria-label="Email"
               >
                 <FaEnvelope size={32} />
               </motion.a>
               <motion.a
-                href="tel:+16892702419"
+                href={`tel:${t.personalInfo.phone}`}
                 whileHover={{ scale: 1.2, rotate: 5 }}
                 whileTap={{ scale: 0.9 }}
-                className="text-gray-400 hover:text-primary-400 transition-colors"
+                className="text-gray-600 dark:text-gray-400 hover:text-primary-400 transition-colors"
+                aria-label="Phone"
               >
                 <FaPhone size={32} />
               </motion.a>
@@ -222,7 +233,7 @@ const Hero = () => {
               <div className="relative w-full max-w-xl lg:max-w-none h-[600px] md:h-[600px] lg:h-[700px] lg:w-[700px]">
                 <Image
                   src="/profile.png"
-                  alt="Rohith Neralla - Software Engineer"
+                  alt={`${t.personalInfo.name} - ${t.personalInfo.title}`}
                   fill
                   className="object-contain object-right"
                   priority

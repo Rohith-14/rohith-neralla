@@ -6,12 +6,22 @@ import { useInView } from 'react-intersection-observer'
 import { FaGithub, FaLinkedin, FaEnvelope, FaPhone, FaPaperPlane } from 'react-icons/fa'
 import { HiCheckCircle, HiXCircle } from 'react-icons/hi'
 import emailjs from '@emailjs/browser'
+import { useTranslation } from '@/i18n/useTranslation'
+
+// Icon mapping
+const iconMap: Record<string, any> = {
+  FaEnvelope,
+  FaPhone,
+  FaLinkedin,
+  FaGithub,
+}
 
 const Contact = () => {
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
   })
+  const { t } = useTranslation()
 
   const formRef = useRef<HTMLFormElement>(null)
   const [formData, setFormData] = useState({
@@ -49,7 +59,7 @@ const Contact = () => {
     } catch (error: any) {
       console.error('Email send error:', error)
       setStatus('error')
-      setErrorMessage(error?.text || 'Failed to send message. Please try again or contact me directly via email.')
+      setErrorMessage(error?.text || t.contact.form.messages.error)
       setTimeout(() => setStatus('idle'), 5000)
     }
   }
@@ -70,39 +80,8 @@ const Contact = () => {
     })
   }
 
-  const contactInfo = [
-    {
-      icon: FaEnvelope,
-      label: 'Email',
-      value: 'rohithneralla99@gmail.com',
-      href: 'mailto:rohithneralla99@gmail.com',
-      color: 'from-blue-500 to-cyan-500',
-    },
-    {
-      icon: FaPhone,
-      label: 'Phone',
-      value: '+1 (689) 270-2419',
-      href: 'tel:+16892702419',
-      color: 'from-green-500 to-emerald-500',
-    },
-    {
-      icon: FaLinkedin,
-      label: 'LinkedIn',
-      value: 'linkedin.com/in/rohith-neralla',
-      href: 'https://linkedin.com/in/rohith-neralla',
-      color: 'from-blue-600 to-blue-700',
-    },
-    {
-      icon: FaGithub,
-      label: 'GitHub',
-      value: 'github.com/Rohith-14',
-      href: 'https://github.com/Rohith-14',
-      color: 'from-gray-700 to-gray-800',
-    },
-  ]
-
   return (
-    <section id="contact" className="py-20 bg-dark-800">
+    <section id="contact" className="py-20 bg-gray-100 dark:bg-dark-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}
@@ -115,8 +94,8 @@ const Contact = () => {
             Get In <span className="gradient-text">Touch</span>
           </h2>
           <div className="w-20 h-1 bg-gradient-to-r from-primary-500 to-purple-500 mx-auto rounded-full mb-4" />
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
+          <p className="text-gray-600 dark:text-gray-400 text-lg max-w-2xl mx-auto">
+            {t.contact.description}
           </p>
         </motion.div>
 
@@ -127,33 +106,36 @@ const Contact = () => {
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <h3 className="text-2xl font-bold text-gray-200 mb-6">Contact Information</h3>
-            <p className="text-gray-400 mb-8">
-              Feel free to reach out through any of these channels. I typically respond within 24 hours.
+            <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-200 mb-6">Contact Information</h3>
+            <p className="text-gray-600 dark:text-gray-400 mb-8">
+              {t.contact.subtitle}
             </p>
 
             <div className="space-y-4">
-              {contactInfo.map((info, index) => (
-                <motion.a
-                  key={info.label}
-                  href={info.href}
-                  target={info.href.startsWith('http') ? '_blank' : undefined}
-                  rel={info.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={inView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
-                  whileHover={{ scale: 1.02, x: 5 }}
-                  className="flex items-center gap-4 bg-dark-900 p-4 rounded-lg border border-gray-700 hover:border-primary-500 transition-all duration-300"
-                >
-                  <div className={`w-12 h-12 bg-gradient-to-r ${info.color} rounded-lg flex items-center justify-center flex-shrink-0`}>
-                    <info.icon className="text-white text-xl" />
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-400">{info.label}</p>
-                    <p className="text-gray-200 font-medium">{info.value}</p>
-                  </div>
-                </motion.a>
-              ))}
+              {t.contact.info.map((info, index) => {
+                const IconComponent = iconMap[info.icon]
+                return (
+                  <motion.a
+                    key={info.label}
+                    href={info.href}
+                    target={info.href.startsWith('http') ? '_blank' : undefined}
+                    rel={info.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={inView ? { opacity: 1, x: 0 } : {}}
+                    transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
+                    whileHover={{ scale: 1.02, x: 5, transition: { duration: 0.2 } }}
+                    className="flex items-center gap-4 bg-white dark:bg-dark-900 p-4 rounded-lg border border-gray-300 dark:border-gray-700 hover:border-primary-500 transition-all duration-300"
+                  >
+                    <div className={`w-12 h-12 bg-gradient-to-r ${info.color} rounded-lg flex items-center justify-center flex-shrink-0`}>
+                      <IconComponent className="text-white text-xl" />
+                    </div>
+                    <div>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">{info.label}</p>
+                      <p className="text-gray-900 dark:text-gray-200 font-medium">{info.value}</p>
+                    </div>
+                  </motion.a>
+                )
+              })}
             </div>
 
             {/* Additional info */}
@@ -163,10 +145,9 @@ const Contact = () => {
               transition={{ duration: 0.6, delay: 0.8 }}
               className="mt-8 p-6 bg-gradient-to-br from-primary-500/10 to-purple-500/10 border border-primary-500/20 rounded-lg"
             >
-              <h4 className="text-lg font-bold text-gray-200 mb-2">Open to Opportunities</h4>
-              <p className="text-gray-400 text-sm">
-                Currently exploring full-time roles and contract opportunities in frontend development, 
-                particularly with React, Next.js, and React Native.
+              <h4 className="text-lg font-bold text-gray-900 dark:text-gray-200 mb-2">{t.contact.opportunity.title}</h4>
+              <p className="text-gray-600 dark:text-gray-400 text-sm">
+                {t.contact.opportunity.description}
               </p>
             </motion.div>
           </motion.div>
@@ -179,8 +160,8 @@ const Contact = () => {
           >
             <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
-                  Your Name
+                <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  {t.contact.form.labels.name}
                 </label>
                 <input
                   type="text"
@@ -190,14 +171,14 @@ const Contact = () => {
                   onChange={handleChange}
                   required
                   disabled={status === 'sending'}
-                  className="w-full px-4 py-3 bg-dark-900 border border-gray-700 rounded-lg text-gray-200 placeholder-gray-500 focus:outline-none focus:border-primary-500 transition-colors disabled:opacity-50"
-                  placeholder="John Doe"
+                  className="w-full px-4 py-3 bg-white dark:bg-dark-900 border border-gray-300 dark:border-gray-700 rounded-lg text-gray-900 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:border-primary-500 transition-colors disabled:opacity-50"
+                  placeholder={t.contact.form.placeholders.name}
                 />
               </div>
 
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
-                  Your Email
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  {t.contact.form.labels.email}
                 </label>
                 <input
                   type="email"
@@ -207,14 +188,14 @@ const Contact = () => {
                   onChange={handleChange}
                   required
                   disabled={status === 'sending'}
-                  className="w-full px-4 py-3 bg-dark-900 border border-gray-700 rounded-lg text-gray-200 placeholder-gray-500 focus:outline-none focus:border-primary-500 transition-colors disabled:opacity-50"
-                  placeholder="john@example.com"
+                  className="w-full px-4 py-3 bg-white dark:bg-dark-900 border border-gray-300 dark:border-gray-700 rounded-lg text-gray-900 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:border-primary-500 transition-colors disabled:opacity-50"
+                  placeholder={t.contact.form.placeholders.email}
                 />
               </div>
 
               <div>
-                <label htmlFor="subject" className="block text-sm font-medium text-gray-300 mb-2">
-                  Subject
+                <label htmlFor="subject" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  {t.contact.form.labels.subject}
                 </label>
                 <input
                   type="text"
@@ -224,14 +205,14 @@ const Contact = () => {
                   onChange={handleChange}
                   required
                   disabled={status === 'sending'}
-                  className="w-full px-4 py-3 bg-dark-900 border border-gray-700 rounded-lg text-gray-200 placeholder-gray-500 focus:outline-none focus:border-primary-500 transition-colors disabled:opacity-50"
-                  placeholder="Project Opportunity"
+                  className="w-full px-4 py-3 bg-white dark:bg-dark-900 border border-gray-300 dark:border-gray-700 rounded-lg text-gray-900 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:border-primary-500 transition-colors disabled:opacity-50"
+                  placeholder={t.contact.form.placeholders.subject}
                 />
               </div>
 
               <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
-                  Message
+                <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  {t.contact.form.labels.message}
                 </label>
                 <textarea
                   id="message"
@@ -241,8 +222,8 @@ const Contact = () => {
                   required
                   disabled={status === 'sending'}
                   rows={6}
-                  className="w-full px-4 py-3 bg-dark-900 border border-gray-700 rounded-lg text-gray-200 placeholder-gray-500 focus:outline-none focus:border-primary-500 transition-colors resize-none disabled:opacity-50"
-                  placeholder="Tell me about your project..."
+                  className="w-full px-4 py-3 bg-white dark:bg-dark-900 border border-gray-300 dark:border-gray-700 rounded-lg text-gray-900 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:border-primary-500 transition-colors resize-none disabled:opacity-50"
+                  placeholder={t.contact.form.placeholders.message}
                 />
               </div>
 
@@ -253,7 +234,7 @@ const Contact = () => {
                   className="flex items-center gap-2 text-green-400 bg-green-400/10 border border-green-400/20 rounded-lg p-4"
                 >
                   <HiCheckCircle size={24} />
-                  <span>Message sent successfully! I'll get back to you soon.</span>
+                  <span>{t.contact.form.messages.success}</span>
                 </motion.div>
               )}
 
@@ -278,12 +259,12 @@ const Contact = () => {
                 {status === 'sending' ? (
                   <>
                     <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-                    Sending...
+                    {t.contact.form.buttons.sending}
                   </>
                 ) : (
                   <>
                     <FaPaperPlane />
-                    Send Message
+                    {t.contact.form.buttons.submit}
                   </>
                 )}
               </motion.button>
