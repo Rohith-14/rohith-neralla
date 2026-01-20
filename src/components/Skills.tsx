@@ -108,7 +108,7 @@ const Skills = () => {
                             <div className="w-full mt-3 bg-gray-300 dark:bg-gray-700 rounded-full h-2 overflow-hidden">
                               <motion.div
                                 initial={{ width: 0 }}
-                                animate={inView ? { width: `${skill.level}%` } : { width: `${skill.level}%` }}
+                                animate={inView ? { width: `${skill.level}%` } : { width: 0 }}
                                 transition={{ duration: 1, delay: (categoryIndex * 0.1) + (skillIndex * 0.05) + 0.3 }}
                                 className="h-full rounded-full"
                                 style={{
