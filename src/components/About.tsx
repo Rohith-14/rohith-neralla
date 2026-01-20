@@ -31,7 +31,7 @@ const About = () => {
   }
 
   return (
-    <section id="about" className="py-20 bg-gray-100 dark:bg-dark-800">
+    <section id="about" className="py-20 bg-dark-800">
       <motion.div
         ref={ref}
         variants={containerVariants}
@@ -50,9 +50,9 @@ const About = () => {
           <motion.div variants={itemVariants}>
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-r from-primary-500 to-purple-500 rounded-lg blur-xl opacity-20" />
-              <div className="relative bg-gray-50 dark:bg-dark-700 p-8 rounded-lg border border-gray-300 dark:border-gray-700">
+              <div className="relative bg-dark-700 p-8 rounded-lg border border-gray-700">
                 {t.about.paragraphs.map((paragraph, index) => (
-                  <p key={index} className={`text-gray-700 dark:text-gray-300 text-lg leading-relaxed ${index < t.about.paragraphs.length - 1 ? 'mb-4' : ''}`}>
+                  <p key={index} className={`text-gray-300 text-lg leading-relaxed ${index < t.about.paragraphs.length - 1 ? 'mb-4' : ''}`}>
                     {paragraph.split(/(Software Engineer|3\+ years|Velmeni\.ai|responsive|performant|user-friendly)/).map((part, i) => {
                       const isHighlight = t.about.highlights.some(h => h.text === part)
                       return isHighlight ? (
@@ -74,7 +74,7 @@ const About = () => {
                   </div>
                   <div>
                     <h3 className="text-xl font-bold text-gray-200 mb-2">{card.title}</h3>
-                    <p className="text-gray-600 dark:text-gray-400">{card.subtitle}</p>
+                    <p className="text-gray-400">{card.subtitle}</p>
                     <p className="text-gray-500 text-sm">{card.description}</p>
                   </div>
                 </div>

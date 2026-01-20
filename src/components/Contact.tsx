@@ -81,7 +81,7 @@ const Contact = () => {
   }
 
   return (
-    <section id="contact" className="py-20 bg-gray-100 dark:bg-dark-800">
+    <section id="contact" className="py-20 bg-dark-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}
@@ -94,7 +94,7 @@ const Contact = () => {
             Get In <span className="gradient-text">Touch</span>
           </h2>
           <div className="w-20 h-1 bg-gradient-to-r from-primary-500 to-purple-500 mx-auto rounded-full mb-4" />
-          <p className="text-gray-600 dark:text-gray-400 text-lg max-w-2xl mx-auto">
+          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
             {t.contact.description}
           </p>
         </motion.div>
@@ -106,8 +106,8 @@ const Contact = () => {
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-200 mb-6">Contact Information</h3>
-            <p className="text-gray-600 dark:text-gray-400 mb-8">
+            <h3 className="text-2xl font-bold text-gray-200 mb-6">Contact Information</h3>
+            <p className="text-gray-400 mb-8">
               {t.contact.subtitle}
             </p>
 
@@ -124,14 +124,14 @@ const Contact = () => {
                     animate={inView ? { opacity: 1, x: 0 } : {}}
                     transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
                     whileHover={{ scale: 1.02, x: 5, transition: { duration: 0.2 } }}
-                    className="flex items-center gap-4 bg-white dark:bg-dark-900 p-4 rounded-lg border border-gray-300 dark:border-gray-700 hover:border-primary-500 transition-all duration-300"
+                    className="flex items-center gap-4 bg-dark-900 p-4 rounded-lg border border-gray-700 hover:border-primary-500 transition-all duration-300"
                   >
                     <div className={`w-12 h-12 bg-gradient-to-r ${info.color} rounded-lg flex items-center justify-center flex-shrink-0`}>
                       <IconComponent className="text-white text-xl" />
                     </div>
                     <div>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">{info.label}</p>
-                      <p className="text-gray-900 dark:text-gray-200 font-medium">{info.value}</p>
+                      <p className="text-sm text-gray-400">{info.label}</p>
+                      <p className="text-gray-200 font-medium">{info.value}</p>
                     </div>
                   </motion.a>
                 )
@@ -145,8 +145,8 @@ const Contact = () => {
               transition={{ duration: 0.6, delay: 0.8 }}
               className="mt-8 p-6 bg-gradient-to-br from-primary-500/10 to-purple-500/10 border border-primary-500/20 rounded-lg"
             >
-              <h4 className="text-lg font-bold text-gray-900 dark:text-gray-200 mb-2">{t.contact.opportunity.title}</h4>
-              <p className="text-gray-600 dark:text-gray-400 text-sm">
+              <h4 className="text-lg font-bold text-gray-200 mb-2">{t.contact.opportunity.title}</h4>
+              <p className="text-gray-400 text-sm">
                 {t.contact.opportunity.description}
               </p>
             </motion.div>
@@ -160,7 +160,7 @@ const Contact = () => {
           >
             <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
                   {t.contact.form.labels.name}
                 </label>
                 <input
@@ -171,13 +171,13 @@ const Contact = () => {
                   onChange={handleChange}
                   required
                   disabled={status === 'sending'}
-                  className="w-full px-4 py-3 bg-white dark:bg-dark-900 border border-gray-300 dark:border-gray-700 rounded-lg text-gray-900 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:border-primary-500 transition-colors disabled:opacity-50"
+                  className="w-full px-4 py-3 bg-dark-900 border border-gray-700 rounded-lg text-gray-200 placeholder-gray-500 focus:outline-none focus:border-primary-500 transition-colors disabled:opacity-50"
                   placeholder={t.contact.form.placeholders.name}
                 />
               </div>
 
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
                   {t.contact.form.labels.email}
                 </label>
                 <input
@@ -188,13 +188,13 @@ const Contact = () => {
                   onChange={handleChange}
                   required
                   disabled={status === 'sending'}
-                  className="w-full px-4 py-3 bg-white dark:bg-dark-900 border border-gray-300 dark:border-gray-700 rounded-lg text-gray-900 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:border-primary-500 transition-colors disabled:opacity-50"
+                  className="w-full px-4 py-3 bg-dark-900 border border-gray-700 rounded-lg text-gray-200 placeholder-gray-500 focus:outline-none focus:border-primary-500 transition-colors disabled:opacity-50"
                   placeholder={t.contact.form.placeholders.email}
                 />
               </div>
 
               <div>
-                <label htmlFor="subject" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label htmlFor="subject" className="block text-sm font-medium text-gray-300 mb-2">
                   {t.contact.form.labels.subject}
                 </label>
                 <input
@@ -205,13 +205,13 @@ const Contact = () => {
                   onChange={handleChange}
                   required
                   disabled={status === 'sending'}
-                  className="w-full px-4 py-3 bg-white dark:bg-dark-900 border border-gray-300 dark:border-gray-700 rounded-lg text-gray-900 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:border-primary-500 transition-colors disabled:opacity-50"
+                  className="w-full px-4 py-3 bg-dark-900 border border-gray-700 rounded-lg text-gray-200 placeholder-gray-500 focus:outline-none focus:border-primary-500 transition-colors disabled:opacity-50"
                   placeholder={t.contact.form.placeholders.subject}
                 />
               </div>
 
               <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
                   {t.contact.form.labels.message}
                 </label>
                 <textarea
@@ -222,7 +222,7 @@ const Contact = () => {
                   required
                   disabled={status === 'sending'}
                   rows={6}
-                  className="w-full px-4 py-3 bg-white dark:bg-dark-900 border border-gray-300 dark:border-gray-700 rounded-lg text-gray-900 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:border-primary-500 transition-colors resize-none disabled:opacity-50"
+                  className="w-full px-4 py-3 bg-dark-900 border border-gray-700 rounded-lg text-gray-200 placeholder-gray-500 focus:outline-none focus:border-primary-500 transition-colors resize-none disabled:opacity-50"
                   placeholder={t.contact.form.placeholders.message}
                 />
               </div>

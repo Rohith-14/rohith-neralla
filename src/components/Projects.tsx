@@ -35,7 +35,7 @@ const Projects = () => {
   const { t } = useTranslation()
 
   return (
-    <section id="projects" className="py-20 bg-white dark:bg-dark-900">
+    <section id="projects" className="py-20 bg-dark-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}
@@ -48,7 +48,7 @@ const Projects = () => {
             Featured <span className="gradient-text">Projects</span>
           </h2>
           <div className="w-20 h-1 bg-gradient-to-r from-primary-500 to-purple-500 mx-auto rounded-full mb-4" />
-          <p className="text-gray-600 dark:text-gray-400 text-lg max-w-2xl mx-auto">
+          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
             {t.projects.description}
           </p>
         </motion.div>
@@ -63,7 +63,7 @@ const Projects = () => {
               whileHover={{ y: -10 }}
               className="group"
             >
-              <div className="bg-gray-100 dark:bg-dark-800 rounded-lg border border-gray-300 dark:border-gray-700 hover:border-primary-500 transition-all duration-300 h-full flex flex-col overflow-hidden">
+              <div className="bg-dark-800 rounded-lg border border-gray-700 hover:border-primary-500 transition-all duration-300 h-full flex flex-col overflow-hidden">
                 {/* Header with gradient */}
                 <div 
                   className="p-6"
@@ -89,15 +89,15 @@ const Projects = () => {
 
                 {/* Content */}
                 <div className="p-6 flex-grow flex flex-col">
-                  <p className="text-gray-700 dark:text-gray-300 mb-4 text-sm leading-relaxed">
+                  <p className="text-gray-300 mb-4 text-sm leading-relaxed">
                     {project.description}
                   </p>
 
                   <div className="mb-4">
-                    <h4 className="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-2">Key Achievements:</h4>
+                    <h4 className="text-sm font-semibold text-gray-400 mb-2">Key Achievements:</h4>
                     <ul className="space-y-1">
                       {project.achievements.map((achievement, i) => (
-                        <li key={i} className="flex items-start gap-2 text-gray-600 dark:text-gray-400 text-xs">
+                        <li key={i} className="flex items-start gap-2 text-gray-400 text-xs">
                           <span className="text-primary-400 mt-0.5">▹</span>
                           <span>{achievement}</span>
                         </li>
@@ -110,7 +110,7 @@ const Projects = () => {
                     {project.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="px-3 py-1 bg-gray-50 dark:bg-dark-700 text-primary-400 text-xs rounded-full border border-primary-500/20"
+                        className="px-3 py-1 bg-dark-700 text-primary-400 text-xs rounded-full border border-primary-500/20"
                       >
                         {tag}
                       </span>
@@ -129,7 +129,7 @@ const Projects = () => {
           transition={{ duration: 0.6, delay: 0.8 }}
           className="text-center mt-12"
         >
-          <p className="text-gray-600 dark:text-gray-400 mb-6">
+          <p className="text-gray-400 mb-6">
             {t.projects.cta.text}
           </p>
           <motion.a
@@ -138,7 +138,7 @@ const Projects = () => {
             rel="noopener noreferrer"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="inline-flex items-center gap-2 px-8 py-4 bg-gray-50 dark:bg-dark-700 text-gray-200 font-semibold rounded-lg border border-gray-600 hover:border-primary-500 transition-all duration-300"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-dark-700 text-gray-200 font-semibold rounded-lg border border-gray-600 hover:border-primary-500 transition-all duration-300"
           >
             <FaGithub size={24} />
             {t.projects.cta.buttonText}

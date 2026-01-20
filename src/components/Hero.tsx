@@ -128,7 +128,7 @@ const Hero = () => {
 
             <motion.p
               variants={itemVariants}
-              className="text-lg sm:text-xl md:text-2xl text-gray-600 dark:text-gray-400 mb-6"
+              className="text-lg sm:text-xl md:text-2xl text-gray-400 mb-6"
             >
               {t.hero.description.split(/React|Next\.js|Node\.js/).map((part, i, arr) => {
                 if (i === arr.length - 1) return part
@@ -165,7 +165,7 @@ const Hero = () => {
                 href={t.hero.cta.secondaryLink}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 bg-gray-50 dark:bg-dark-700 text-gray-200 font-semibold rounded-lg border border-gray-600 hover:border-primary-500 transition-all duration-300"
+                className="px-8 py-4 bg-dark-700 text-gray-200 font-semibold rounded-lg border border-gray-600 hover:border-primary-500 transition-all duration-300"
               >
                 {t.hero.cta.secondary}
               </motion.a>
@@ -181,7 +181,7 @@ const Hero = () => {
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.2, rotate: 5 }}
                 whileTap={{ scale: 0.9 }}
-                className="text-gray-600 dark:text-gray-400 hover:text-primary-400 transition-colors"
+                className="text-gray-400 hover:text-primary-400 transition-colors"
                 aria-label="GitHub Profile"
               >
                 <FaGithub size={32} />
@@ -192,7 +192,7 @@ const Hero = () => {
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.2, rotate: 5 }}
                 whileTap={{ scale: 0.9 }}
-                className="text-gray-600 dark:text-gray-400 hover:text-primary-400 transition-colors"
+                className="text-gray-400 hover:text-primary-400 transition-colors"
                 aria-label="LinkedIn Profile"
               >
                 <FaLinkedin size={32} />
@@ -201,7 +201,7 @@ const Hero = () => {
                 href={`mailto:${t.personalInfo.email}`}
                 whileHover={{ scale: 1.2, rotate: 5 }}
                 whileTap={{ scale: 0.9 }}
-                className="text-gray-600 dark:text-gray-400 hover:text-primary-400 transition-colors"
+                className="text-gray-400 hover:text-primary-400 transition-colors"
                 aria-label="Email"
               >
                 <FaEnvelope size={32} />
@@ -210,7 +210,7 @@ const Hero = () => {
                 href={`tel:${t.personalInfo.phone}`}
                 whileHover={{ scale: 1.2, rotate: 5 }}
                 whileTap={{ scale: 0.9 }}
-                className="text-gray-600 dark:text-gray-400 hover:text-primary-400 transition-colors"
+                className="text-gray-400 hover:text-primary-400 transition-colors"
                 aria-label="Phone"
               >
                 <FaPhone size={32} />
