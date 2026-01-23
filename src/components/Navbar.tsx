@@ -20,6 +20,22 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault()
+    const element = document.querySelector(href)
+    if (element) {
+      const offset = href === '#experience' ? 150 : 80
+      const elementPosition = element.getBoundingClientRect().top
+      const offsetPosition = elementPosition + window.pageYOffset - offset
+      
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      })
+    }
+    setIsMobileMenuOpen(false)
+  }
+
   return (
     <motion.nav
       initial={{ y: -100 }}
@@ -50,6 +66,7 @@ const Navbar = () => {
               >
                 <a
                   href={item.href}
+                  onClick={(e) => handleNavClick(e, item.href)}
                   className="text-gray-300 hover:text-primary-400 transition-colors duration-300 font-medium"
                 >
                   {item.name}
@@ -87,7 +104,7 @@ const Navbar = () => {
               <a
                 key={item.name}
                 href={item.href}
-                onClick={() => setIsMobileMenuOpen(false)}
+                onClick={(e) => handleNavClick(e, item.href)}
                 className="block px-3 py-2 text-gray-300 hover:text-primary-400 hover:bg-dark-700 rounded-md transition-colors"
               >
                 {item.name}
